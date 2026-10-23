@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Happy Squid Inc.: giochi fatti in casa. Runess, F.U.P., Happy Squid Game, Fudo e i disegni di Yanez.">
+<link rel="icon" type="image/png" href="img/logo.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Happy Squid Inc.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a quiet index page. Giant justified wordmark, one line of copy and a three-column index; then one reel per game,
+   where the page zooms through the letters of the game's name into its real screenshot. One accent colour only. */
+:root{
+  --bg:#ffffff; --fg:#0c0c0e; --mute:#6c6c75; --line:#e4e4e8; --accent:#ff2f6e; --shade:rgba(12,12,14,.55);
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,'Courier New',monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b0d;--fg:#f3f3f5;--mute:#9a9aa4;--line:#26262c;--accent:#ff4f86;--shade:rgba(0,0,0,.6);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0b0d;--fg:#f3f3f5;--mute:#9a9aa4;--line:#26262c;--accent:#ff4f86;--shade:rgba(0,0,0,.6);color-scheme:dark}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.5 var(--f-display);-webkit-font-smoothing:antialiased}
+html:not([lang|="it"]) [data-l="it"],html[lang|="it"] [data-l="en"]{display:none!important}
+.wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+a{color:inherit}
+.mono{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+
+/* header */
+.top{display:flex;align-items:center;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:22px;height:22px;image-rendering:pixelated}
+.pages{margin-left:auto;display:flex;gap:6px 18px}
+@media (max-width:420px){.brand span{display:none}}
+.pages a{text-decoration:none;color:var(--mute);padding:10px 2px}
+.pages a:hover,.pages a[aria-current="page"]{color:var(--fg)}
+.lang{margin-left:8px;display:flex;gap:4px}
+.lang button{font:500 12px/1 var(--f-mono);letter-spacing:.08em;background:none;border:0;color:var(--mute);padding:10px 8px;cursor:pointer}
+.lang button[aria-pressed="true"]{color:var(--fg);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+
+/* hero */
+.hero{padding-block:clamp(40px,9vh,110px) clamp(48px,8vh,90px)}
+.eyebrow{margin:0 0 clamp(18px,3vw,34px);color:var(--mute)}
+.mark{margin:0;font-family:var(--f-display);font-weight:850;font-stretch:125%;text-transform:uppercase;line-height:.84;letter-spacing:-.02em}
+.mark .ln{display:block;white-space:nowrap;overflow:hidden;padding-bottom:.04em;font-size:12vw}
+.hero .mark .ln span{display:inline-block;animation:rise .9s cubic-bezier(.2,.7,.1,1) both;animation-delay:calc(var(--i) * 45ms + 120ms)}
+.mark .dot{color:var(--accent)}
+.mark .inc{display:inline;margin-left:.28em}
+.hero .mark .ln span.inc{display:inline;animation:none}
+@keyframes rise{from{transform:translateY(105%)}}
+.below{display:flex;flex-direction:column;gap:clamp(28px,4vw,44px);margin-top:clamp(36px,6vw,72px)}
+.tagline{margin:0;font-weight:800;font-stretch:125%;font-size:clamp(28px,3.2vw,46px);line-height:1;letter-spacing:.01em;text-transform:uppercase}
+.tagline .dot{color:var(--accent);display:inline-block;transform-origin:50% 80%;animation:blob 1.6s ease-in-out infinite}
+.tagline .wv{display:inline-block;transform-origin:50% 100%;animation:wig 2.6s ease-in-out infinite;animation-delay:calc(var(--k) * -.17s)}
+.tagline:hover{--amp:.17em;--rot:9deg}
+@keyframes wig{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(calc(var(--amp,.07em) * -1)) rotate(calc(var(--rot,3.5deg) * -1))}}
+@keyframes blob{50%{transform:scale(1.45)}}
+.hero .mark.alive .ln{overflow:visible}
+.hero .mark.alive .ln span{animation:none;transform-origin:50% 100%;will-change:transform}
+.index{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px 32px}
+.index a{display:flex;flex-direction:column;gap:6px;text-decoration:none;min-width:0}
+.index b{font-weight:750;font-stretch:115%;font-size:clamp(22px,2.2vw,32px);line-height:1;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px;border-left:4px solid var(--accent);padding-left:12px}
+.index b i{font-style:normal;color:var(--accent);font-size:.6em;transition:transform .25s}
+.index a:hover b i{transform:translateY(4px)}
+.index .mono{color:var(--mute)}
+.langs{display:flex;flex-wrap:wrap;gap:6px;margin:2px 0 0}
+.langs .tg{font:500 11px/1 var(--f-mono);letter-spacing:.1em;padding:4px 6px;border:1px solid var(--fg);color:var(--fg)}
+.scroll{margin:clamp(40px,7vw,80px) 0 0;color:var(--mute);display:flex;align-items:center;gap:10px}
+.scroll::before{content:"";width:40px;height:1px;background:currentColor}
+@media (max-width:1000px){.index{grid-template-columns:minmax(0,1fr);gap:20px}}
+@media (max-width:600px){.hero .mark .ln span.inc{display:block;margin-left:0}}
+
+/* reels: zoom through the name into the game */
+.reel{position:relative;height:320vh;height:320svh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;isolation:isolate}
+.pic{position:absolute;inset:0;z-index:0}
+.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.pic.solid{background:var(--accent);display:grid;place-items:center}
+.pic.solid .mono{color:var(--bg);font-size:13px}
+.knock{position:absolute;inset:0;z-index:1;width:100%;height:100%;display:block;pointer-events:none}
+.cap{position:absolute;z-index:2;left:max(20px,env(safe-area-inset-left,0px));bottom:max(20px,env(safe-area-inset-bottom,0px));width:min(460px,calc(100% - 40px));box-sizing:border-box;
+  background:var(--bg);color:var(--fg);padding:22px 24px 24px;display:flex;flex-direction:column;gap:10px;opacity:var(--cap,0);transform:translateY(calc((1 - var(--cap,0)) * 16px));visibility:var(--capv,hidden)}
+.cap .mono{color:var(--mute);margin:0}
+.cap h2{margin:0;font-weight:850;font-stretch:125%;text-transform:uppercase;font-size:clamp(34px,4vw,52px);line-height:.9;letter-spacing:-.02em}
+.cap .sub{margin:0;font:500 13px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.cap .hook{margin:4px 0 0;font-size:clamp(19px,1.6vw,23px);line-height:1.25;font-weight:500;text-wrap:balance}
+.links{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:6px}
+.links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-weight:650;font-stretch:110%;text-decoration:none;border-bottom:2px solid var(--accent)}
+.links a:hover{color:var(--accent)}
+.count{position:absolute;z-index:2;right:max(20px,env(safe-area-inset-right,0px));top:20px;color:var(--mute);opacity:calc(1 - var(--cap,0))}
+
+.credit{margin:0;color:var(--mute)}
+.scene-box{position:absolute;z-index:2;right:max(20px,env(safe-area-inset-right,0px));top:56px;width:min(340px,64vw);margin:0;background:var(--bg);padding:8px 8px 10px;
+  display:flex;flex-direction:column;gap:8px;opacity:var(--cap,0);transform:translateY(calc((1 - var(--cap,0)) * 16px));visibility:var(--capv,hidden)}
+.scene-box .px{aspect-ratio:160/72;background:url(img/scene-magazzino.png) 0 0/1600% 100% no-repeat;image-rendering:pixelated;animation:scn 2s steps(16,jump-none) infinite}
+@keyframes scn{to{background-position:100% 0}}
+.scene-box figcaption{color:var(--mute)}
+.gifts{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--cap,0);visibility:var(--capv,hidden)}
+.gifts img{position:absolute;left:0;top:0;width:72px;height:72px;image-rendering:pixelated;filter:drop-shadow(0 0 14px rgba(255,214,64,.55));will-change:transform}
+@media (max-width:700px){.gifts img{width:48px;height:48px}}
+.calm .scene-box,.calm .gifts{--cap:1;--capv:visible}
+.carousel img{position:absolute;inset:0;opacity:0;transition:opacity .8s ease}
+.carousel img.on{opacity:1}
+.car-ctl{display:flex;align-items:center;gap:12px;margin-top:6px;padding-top:12px;border-top:1px solid var(--line)}
+.car-ctl .mono{flex:1;color:var(--mute);text-align:center}
+.car-b{min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--bg);color:var(--fg);font:500 20px/1 var(--f-display);cursor:pointer}
+.car-b:hover{border-color:var(--accent);color:var(--accent)}
+.thumbs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:6px}
+.thumb{padding:0;border:0;background:none;cursor:zoom-in;aspect-ratio:1;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.thumb:hover img{transform:scale(1.06)}
+
+/* drawings */
+.draw{padding-block:clamp(70px,10vw,130px) 0}
+.draw-eyebrow{margin:0 0 clamp(14px,2vw,24px);color:var(--mute)}
+.draw-row{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:12px 32px;margin:clamp(22px,3vw,36px) 0 clamp(28px,4vw,48px)}
+.draw-sub{margin:0;font-size:clamp(19px,1.6vw,23px);font-weight:500;line-height:1.3;max-width:36ch}
+.draw .links{margin:0}
+.draw-title a{text-decoration:none;display:block}
+.draw-title .arw{color:var(--accent);display:inline-block;transition:transform .3s}
+.draw-title a:hover .arw{transform:translateX(.08em)}
+.strip{display:flex;height:clamp(150px,19vw,290px);overflow:hidden;margin-top:6px}
+.strip img{height:100%;width:auto;flex:none;display:block;transition:opacity .25s}
+.strip:hover img{opacity:.8}
+.strip:hover img:hover{opacity:1}
+.grid{list-style:none;margin:0;padding:0;columns:4 240px;column-gap:14px}
+.grid li{break-inside:avoid;margin:0 0 14px}
+.tile{display:block;width:100%;padding:0;border:0;background:var(--line);cursor:zoom-in;outline-offset:3px}
+.tile img{display:block;width:100%;height:auto;transition:opacity .25s}
+.grid:hover .tile img{opacity:.55}
+.grid .tile:hover img,.grid .tile:focus-visible img{opacity:1}
+@media (max-width:600px){.grid{columns:2;column-gap:10px}.grid li{margin-bottom:10px}}
+
+/* lightbox */
+.lb{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--bg);color:var(--fg)}
+.lb::backdrop{background:var(--bg)}
+.lb[open]{display:grid;place-items:center}
+.lb-fig{margin:0;display:flex;flex-direction:column;align-items:center;gap:14px;padding:64px 16px 28px;box-sizing:border-box;max-width:100%;touch-action:pan-y}
+.lb-fig img{max-width:min(92vw,1400px);max-height:calc(100vh - 150px);max-height:calc(100svh - 150px);width:auto;height:auto;object-fit:contain;display:block}
+.lb-fig figcaption{color:var(--mute)}
+.lb-btn{position:fixed;background:var(--bg);color:var(--fg);border:0;cursor:pointer;min-width:48px;min-height:48px}
+.lb-x{top:max(14px,env(safe-area-inset-top,0px));right:max(14px,env(safe-area-inset-right,0px));padding:0 14px}
+.lb-prev,.lb-next{top:50%;translate:0 -50%;font:500 26px/1 var(--f-display)}
+.lb-prev{left:max(10px,env(safe-area-inset-left,0px))}
+.lb-next{right:max(10px,env(safe-area-inset-right,0px))}
+.lb-btn:hover{color:var(--accent)}
+@media (max-width:600px){.lb-prev,.lb-next{top:auto;bottom:max(14px,env(safe-area-inset-bottom,0px));translate:none}}
+
+/* footer */
+.foot{padding-block:clamp(60px,10vw,120px) 24px}
+.foot .mark .ln{color:var(--accent)}
+.foot-row{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;margin-top:28px;color:var(--mute);padding-bottom:env(safe-area-inset-bottom,0px)}
+.foot-row nav{margin-left:auto;display:flex;gap:22px}
+.foot-row a{text-decoration:none;padding-block:8px;color:var(--fg)}
+.foot-row a:hover{color:var(--accent)}
+
+/* calm mode: no zoom, everything laid out flat */
+.calm .reel{height:auto}
+.calm .stage{position:relative;height:auto;display:flex;flex-direction:column}
+.calm .knock,.calm .count{display:none}
+.calm .pic{position:relative;inset:auto;aspect-ratio:16/9}
+.calm .cap{position:relative;left:auto;bottom:auto;width:auto;max-width:640px;--cap:1;--capv:visible;padding-inline:max(20px,env(safe-area-inset-left,0px))}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header class="wrap top">
+  <a class="brand mono" href="#top"><img src="img/logo.png" alt="" width="22" height="22"><span>Happy Squid Inc.</span></a>
+  <nav class="pages mono" aria-label="Pages"><a href="bio.html">Bio</a><a href="contatti.html"><span data-l="en">Contact</span><span data-l="it">Contatti</span></a></nav>
+  <div class="lang" role="group" aria-label="Language / Lingua">
+    <button type="button" data-set="en" aria-pressed="true">EN</button>
+    <button type="button" data-set="it" aria-pressed="false">IT</button>
+  </div>
+</header>
+
+<main>
+  <section class="wrap hero" id="top">
+    <p class="eyebrow mono"><span data-l="en">Homemade games · videogames, cards, drawings</span><span data-l="it">Giochi fatti in casa · videogiochi, carte, disegni</span></p>
+    <h1 class="mark fit" aria-label="Happy Squid Inc.">
+      <span class="ln" aria-hidden="true">Happy</span>
+      <span class="ln" aria-hidden="true">Squid<span class="inc">Inc<span class="dot">.</span></span></span>
+    </h1>
+    <div class="below">
+      <p class="tagline"><span data-l="en">Tentacular</span><span data-l="it">Tentacolari</span><span class="dot">.</span></p>
+      <nav class="index" aria-label="Games">
+        <a href="#runess"><b>Runess <i aria-hidden="true">↓</i></b><span class="mono"><span data-l="en">Voxel FPS</span><span data-l="it">FPS voxel</span></span><span class="mono"><span data-l="en">Windows, Linux · Free</span><span data-l="it">Windows, Linux · Gratis</span></span><span class="langs"><span class="sr"><span data-l="en">Languages: Italian, English</span><span data-l="it">Lingue: italiano, inglese</span></span><span class="tg" aria-hidden="true">ITA</span><span class="tg" aria-hidden="true">ENG</span></span></a>
+        <a href="#fup"><b>F.U.P. <i aria-hidden="true">↓</i></b><span class="mono">Grand strategy</span><span class="mono"><span data-l="en">Browser, phone · Free</span><span data-l="it">Browser, telefono · Gratis</span></span><span class="langs"><span class="sr"><span data-l="en">Languages: Italian</span><span data-l="it">Lingue: italiano</span></span><span class="tg" aria-hidden="true">ITA</span></span></a>
+        <a href="#carte"><b>Happy Squid Game <i aria-hidden="true">↓</i></b><span class="mono"><span data-l="en">Card game · 77 cards</span><span data-l="it">Gioco di carte · 77 carte</span></span><span class="mono"><span data-l="en">Collector's edition</span><span data-l="it">Edizione da collezione</span></span><span class="langs"><span class="sr"><span data-l="en">Languages: Italian</span><span data-l="it">Lingue: italiano</span></span><span class="tg" aria-hidden="true">ITA</span></span></a>
+        <a href="#fudo"><b>Fudo <i aria-hidden="true">↓</i></b><span class="mono"><span data-l="en">In production</span><span data-l="it">In lavorazione</span></span><span class="langs"><span class="sr"><span data-l="en">Languages: Italian, English</span><span data-l="it">Lingue: italiano, inglese</span></span><span class="tg" aria-hidden="true">ITA</span><span class="tg" aria-hidden="true">ENG</span></span></a>
+        <a href="disegni.html"><b><span data-l="en">Drawings</span><span data-l="it">Disegni</span> <i aria-hidden="true">→</i></b><span class="mono"><span data-l="en">By Yanez · 32 pieces</span><span data-l="it">Di Yanez · 32 tavole</span></span></a>
+      </nav>
+    </div>
+    <p class="scroll mono"><span data-l="en">Scroll into the games</span><span data-l="it">Scorri dentro i giochi</span></p>
+  </section>
+
+  <section class="reel" id="runess" data-word="RUNESS">
+    <div class="stage">
+      <div class="pic carousel" id="rCar"><img src="img/r1.webp" alt="Runess: a castle hall with three relics on pedestals, lit by chandeliers" width="1600" height="835" class="on"><img src="img/r2.webp" alt="Runess: a knight sitting under a barred window in a ray of light" width="1600" height="835" loading="lazy"><img src="img/r3.webp" alt="Runess: the enchanted bolt hits a red voxel troll" width="1600" height="835" loading="lazy"><img src="img/r4.webp" alt="Runess: the Skeleton King raises his sword" width="1600" height="835" loading="lazy"><img src="img/r5.webp" alt="Runess: the shop, where gifts cost promises" width="1600" height="835" loading="lazy"><img src="img/r6.webp" alt="Runess: the crystal golem glows purple in the dark" width="1600" height="835" loading="lazy"><img src="img/r7.webp" alt="Runess: the herbalist room with a green bubbling cauldron" width="1600" height="835" loading="lazy"></div>
+      <canvas class="knock" aria-hidden="true"></canvas>
+      <p class="count mono">1 / 4</p>
+      <div class="gifts" aria-hidden="true"><img src="img/gifts/magic_bean.png" alt="" width="72" height="72"><img src="img/gifts/dragon_heart.png" alt="" width="72" height="72"><img src="img/gifts/glass_slippers.png" alt="" width="72" height="72"><img src="img/gifts/golden_cockerel.png" alt="" width="72" height="72"><img src="img/gifts/water_of_life.png" alt="" width="72" height="72"><img src="img/gifts/owl_feather.png" alt="" width="72" height="72"></div>
+      <div class="cap">
+        <p class="mono"><span data-l="en">Available · Windows, Linux · Free</span><span data-l="it">Disponibile · Windows, Linux · Gratis</span></p>
+        <h2>Runess</h2>
+        <span class="langs"><span class="sr"><span data-l="en">Languages: Italian, English</span><span data-l="it">Lingue: italiano, inglese</span></span><span class="tg" aria-hidden="true">ITA</span><span class="tg" aria-hidden="true">ENG</span></span>
+        <p class="hook"><span data-l="en">No knight? No problem.</span><span data-l="it">Nessun cavaliere? Nessun problema.</span></p>
+        <div class="links">
+          <a href="https://yanez86.itch.io/runess" target="_blank" rel="noopener"><span data-l="en">Download free</span><span data-l="it">Scarica gratis</span> →</a>
+          <a href="https://yanez86.github.io/runess-site/" target="_blank" rel="noopener"><span data-l="en">Website</span><span data-l="it">Sito</span> →</a>
+        </div>
+        <div class="car-ctl">
+          <button class="car-b" type="button" id="rPrev" aria-label="Previous scene">←</button>
+          <span class="mono" id="rLab" aria-live="polite">1 / 7</span>
+          <button class="car-b" type="button" id="rNext" aria-label="Next scene">→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="fup" data-word="F.U.P.">
+    <div class="stage">
+      <div class="pic"><img src="img/fup-map.webp" alt="F.U.P.: the map of Northern Italy with warehouses, roads and trucks" width="1200" height="717"></div>
+      <canvas class="knock" aria-hidden="true"></canvas>
+      <p class="count mono">2 / 4</p>
+      <figure class="scene-box"><div class="px" role="img" aria-label="Pixel-art scene from F.U.P.: a forklift and workers in a warehouse full of shelves"></div><figcaption class="mono"><span data-l="en">From the game · The warehouse</span><span data-l="it">Dal gioco · Il magazzino</span></figcaption></figure>
+      <div class="cap">
+        <p class="mono"><span data-l="en">Available · Browser, phone · Free</span><span data-l="it">Disponibile · Browser, telefono · Gratis</span></p>
+        <h2>F.U.P.</h2>
+        <span class="langs"><span class="sr"><span data-l="en">Languages: Italian</span><span data-l="it">Lingue: italiano</span></span><span class="tg" aria-hidden="true">ITA</span></span>
+        <p class="sub">Fino all'ultimo pallet</p>
+        <p class="hook"><span data-l="en">The first true grand strategy game of the supply chain.</span><span data-l="it">Il primo vero grand strategy della supply chain.</span></p>
+        <div class="links"><a href="https://yanez86.github.io/fup/" target="_blank" rel="noopener"><span data-l="en">Play free</span><span data-l="it">Gioca gratis</span> →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="carte" data-word="77">
+    <div class="stage">
+      <div class="pic"><img src="img/cards-reel.webp" alt="Happy Squid Game: a deck of the orange cards, the top one shows a drawn character" width="900" height="1125"></div>
+      <canvas class="knock" aria-hidden="true"></canvas>
+      <p class="count mono">3 / 4</p>
+      <div class="cap">
+        <p class="mono"><span data-l="en">Card game · Collector's edition</span><span data-l="it">Gioco di carte · Edizione da collezione</span></p>
+        <h2>Happy Squid Game</h2>
+        <span class="langs"><span class="sr"><span data-l="en">Languages: Italian</span><span data-l="it">Lingue: italiano</span></span><span class="tg" aria-hidden="true">ITA</span></span>
+        <p class="sub"><span data-l="en">77 cards · 63 × 88 mm · 330 gsm</span><span data-l="it">77 carte · 63 × 88 mm · 330 g/m²</span></p>
+        <p class="hook"><span data-l="en">77 unique cards, drawn and designed from scratch, starring the most iconic moments of the Happy Squid e-sports crew.</span><span data-l="it">77 carte uniche, disegnate e progettate da zero, con i momenti più iconici del gruppo e-sport Happy Squid.</span></p>
+        <p class="mono credit"><span data-l="en">By Yanez and lucaUnlinked · very few copies</span><span data-l="it">Di Yanez e lucaUnlinked · pochissime copie</span></p>
+        <div class="thumbs"><button class="thumb" type="button" aria-label="Happy Squid Game, photo 1"><img src="img/c1.webp" alt="" width="331" height="360" loading="lazy"></button><button class="thumb" type="button" aria-label="Happy Squid Game, photo 2"><img src="img/c2.webp" alt="" width="288" height="360" loading="lazy"></button><button class="thumb" type="button" aria-label="Happy Squid Game, photo 3"><img src="img/c3.webp" alt="" width="202" height="360" loading="lazy"></button><button class="thumb" type="button" aria-label="Happy Squid Game, photo 4"><img src="img/c4.webp" alt="" width="202" height="360" loading="lazy"></button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reel" id="fudo" data-word="FUDO">
+    <div class="stage">
+      <div class="pic solid"><span class="mono" aria-hidden="true"><span data-l="en">In production</span><span data-l="it">In lavorazione</span></span></div>
+      <canvas class="knock" aria-hidden="true"></canvas>
+      <p class="count mono">4 / 4</p>
+      <div class="cap">
+        <p class="mono"><span data-l="en">In production</span><span data-l="it">In lavorazione</span></p>
+        <h2>Fudo</h2>
+        <span class="langs"><span class="sr"><span data-l="en">Languages: Italian, English</span><span data-l="it">Lingue: italiano, inglese</span></span><span class="tg" aria-hidden="true">ITA</span><span class="tg" aria-hidden="true">ENG</span></span>
+        <p class="hook"><span data-l="en">Soon, here.</span><span data-l="it">Presto, qui.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="draw" id="disegni">
+    <div class="wrap">
+      <p class="mono draw-eyebrow"><span data-l="en">By Yanez · 32 pieces</span><span data-l="it">Di Yanez · 32 tavole</span></p>
+      <h2 class="mark fit draw-title"><a href="disegni.html"><span class="ln"><span data-l="en">Drawings</span><span data-l="it">Disegni</span> <span class="arw">→</span></span></a></h2>
+      <div class="draw-row">
+        <p class="draw-sub"><span data-l="en">A wall of 32 drawings by Yanez, one next to the other. Step inside.</span><span data-l="it">Un muro di 32 disegni di Yanez, uno attaccato all'altro. Entra.</span></p>
+        <div class="links">
+          <a href="disegni.html"><span data-l="en">See the wall</span><span data-l="it">Guarda il muro</span> →</a>
+        </div>
+      </div>
+    </div>
+    <a class="strip" href="disegni.html" aria-label="Drawings by Yanez: open the wall"><img src="img/d01.webp" alt="" width="480" height="550" loading="lazy" decoding="async"><img src="img/d02.webp" alt="" width="480" height="679" loading="lazy" decoding="async"><img src="img/d03.webp" alt="" width="480" height="598" loading="lazy" decoding="async"><img src="img/d04.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d05.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d06.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d07.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d08.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d09.webp" alt="" width="480" height="679" loading="lazy" decoding="async"><img src="img/d10.webp" alt="" width="480" height="480" loading="lazy" decoding="async"><img src="img/d11.webp" alt="" width="480" height="679" loading="lazy" decoding="async"><img src="img/d12.webp" alt="" width="480" height="679" loading="lazy" decoding="async"></a>
+  </section>
+</main>
+
+<dialog class="lb" id="lb">
+  <figure class="lb-fig"><img id="lbImg" alt=""><figcaption class="mono" id="lbCap"></figcaption></figure>
+  <button class="lb-btn lb-x mono" type="button" id="lbClose"><span data-l="en">Close</span><span data-l="it">Chiudi</span> ✕</button>
+  <button class="lb-btn lb-prev" type="button" id="lbPrev" aria-label="Previous">←</button>
+  <button class="lb-btn lb-next" type="button" id="lbNext" aria-label="Next">→</button>
+</dialog>
+
+<footer class="wrap foot">
+  <p class="mark fit" aria-hidden="true"><span class="ln">Happy Squid Inc.</span></p>
+  <div class="foot-row mono">
+    <span>© 2026 Happy Squid Inc.</span>
+    <nav aria-label="Elsewhere">
+      <a href="https://yanez86.itch.io/" target="_blank" rel="noopener">itch.io ↗</a>
+      <a href="https://github.com/yanez86" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const root = document.documentElement;
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (reduce) root.classList.add('calm');
+
+/* language */
+function setLang(l, save) {
+  const lang = l === 'it' ? 'it' : 'en';
+  root.lang = lang;
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === lang)));
+  if (save) { try { localStorage.setItem('hsq-mini-lang', lang); } catch (e) {} }
+  $$('.tile img').forEach((im, i) => { im.alt = lang === 'it' ? `Disegno ${i + 1} di 32, di Yanez` : `Drawing ${i + 1} of 32, by Yanez`; });
+  if (typeof fitMarks === 'function') fitMarks();
+  if (typeof rShow === 'function' && document.getElementById('rLab')) try { rShow(rI); } catch (e) {}
+}
+$$('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set, true)));
+let saved = null;
+try { saved = localStorage.getItem('hsq-mini-lang'); } catch (e) {}
+const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+setLang(saved || (navLang.toLowerCase().startsWith('it') ? 'it' : 'en'), false);
+
+/* wordmark: split into letters for the entrance, then fit each line to the full width */
+$$('.mark .ln').forEach(ln => {
+  let i = 0;
+  const walk = node => [...node.childNodes].forEach(n => {
+    if (n.nodeType === 3) {
+      const frag = document.createDocumentFragment();
+      for (const ch of n.textContent) { const s = document.createElement('span'); s.textContent = ch === ' ' ? ' ' : ch; s.style.setProperty('--i', i++); frag.appendChild(s); }
+      n.replaceWith(frag);
+    } else if (n.nodeType === 1) { if (n.classList.contains('inc')) walk(n); else n.style.setProperty('--i', i++); }
+  });
+  walk(ln);
+});
+function fitMarks() {
+  $$('.mark.fit').forEach(m => {
+    const W = m.clientWidth;
+    $$('.ln', m).forEach(ln => {
+      ln.style.fontSize = '100px';
+      const rg = document.createRange(); rg.selectNodeContents(ln);
+      const w = rg.getBoundingClientRect().width;
+      if (w) ln.style.fontSize = (100 * W / w * .995).toFixed(2) + 'px';
+    });
+  });
+}
+
+/* reels */
+const reels = $$('.reel').map(sec => ({ sec, cv: $('.knock', sec), word: sec.dataset.word, geo: null }));
+let VW = 0, VH = 0, DPR = 1;
+const FONT = s => `900 ${s}px Archivo, "Helvetica Neue", Arial, sans-serif`;
+
+/* find the thickest point inside the word: a two-pass distance transform on a small rendering */
+function analyse(word) {
+  const S = 220, c = document.createElement('canvas'), x = c.getContext('2d');
+  x.font = FONT(S);
+  const m = x.measureText(word), asc = Math.ceil(m.actualBoundingBoxAscent), dsc = Math.ceil(m.actualBoundingBoxDescent);
+  const w = Math.ceil(m.width) + 4, h = asc + dsc + 4;
+  c.width = w; c.height = h; x.font = FONT(S); x.fillStyle = '#000'; x.textBaseline = 'alphabetic';
+  x.fillText(word, 2, asc + 2);
+  const px = x.getImageData(0, 0, w, h).data, D = new Float32Array(w * h), BIG = 1e6;
+  for (let i = 0; i < w * h; i++) D[i] = px[i * 4 + 3] > 127 ? BIG : 0;
+  const at = (X, Y) => (X < 0 || Y < 0 || X >= w || Y >= h) ? 0 : D[Y * w + X];
+  for (let Y = 0; Y < h; Y++) for (let X = 0; X < w; X++) { const i = Y * w + X; if (D[i]) D[i] = Math.min(D[i], at(X - 1, Y) + 1, at(X, Y - 1) + 1, at(X - 1, Y - 1) + 1.414, at(X + 1, Y - 1) + 1.414); }
+  for (let Y = h - 1; Y >= 0; Y--) for (let X = w - 1; X >= 0; X--) { const i = Y * w + X; if (D[i]) D[i] = Math.min(D[i], at(X + 1, Y) + 1, at(X, Y + 1) + 1, at(X + 1, Y + 1) + 1.414, at(X - 1, Y + 1) + 1.414); }
+  let best = -1, bx = 0, by = 0;
+  for (let Y = 0; Y < h; Y++) for (let X = 0; X < w; X++) {
+    const d = D[Y * w + X], score = d - Math.abs(X - w / 2) * .02;
+    if (d && score > best) { best = score; bx = X; by = Y; }
+  }
+  return { S, adv: m.width, asc, ox: bx - 2, oy: by - 2 - asc, r: D[by * w + bx] };
+}
+function sizeAll() {
+  VW = innerWidth; VH = innerHeight; DPR = Math.min(2, devicePixelRatio || 1);
+  for (const R of reels) {
+    const st = R.cv.parentElement, w = st.clientWidth, h = st.clientHeight;
+    R.cv.width = Math.round(w * DPR); R.cv.height = Math.round(h * DPR); R.w = w; R.h = h;
+    if (!R.geo) R.geo = analyse(R.word);
+    const g = R.geo, k = Math.min(w * .86 / g.adv, h * .5 / g.asc);
+    R.F = g.S * k;
+    R.x0 = (w - g.adv * k) / 2; R.y0 = h / 2 + g.asc * k * .5;
+    R.O = [R.x0 + g.ox * k, R.y0 + g.oy * k];
+    R.smax = Math.hypot(w, h) / 2 / Math.max(1, g.r * k) * 1.15;
+  }
+  fitMarks();
+  draw();
+}
+
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function draw() {
+  if (reduce) return;
+  const bg = getComputedStyle(root).getPropertyValue('--bg').trim() || '#fff';
+  for (const R of reels) {
+    const r = R.sec.getBoundingClientRect();
+    if (r.bottom < -10 || r.top > VH + 10) continue;
+    const span = Math.max(1, R.sec.offsetHeight - R.h), p = Math.min(1, Math.max(0, -r.top / span));
+    const z = Math.min(1, Math.max(0, (p - .08) / .6)), e = ease(z);
+    const ctx = R.cv.getContext('2d');
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, R.cv.width, R.cv.height);
+    if (z < 1) {
+      const s = Math.exp(Math.log(R.smax) * e), O = R.O, T = [O[0] + (R.w / 2 - O[0]) * e, O[1] + (R.h / 2 - O[1]) * e];
+      ctx.fillStyle = bg; ctx.fillRect(0, 0, R.cv.width, R.cv.height);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.setTransform(DPR * s, 0, 0, DPR * s, DPR * (T[0] - s * O[0]), DPR * (T[1] - s * O[1]));
+      ctx.font = FONT(R.F); ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#000';
+      ctx.fillText(R.word, R.x0, R.y0);
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    const cap = Math.min(1, Math.max(0, (p - .72) / .1));
+    R.sec.style.setProperty('--cap', cap.toFixed(3));
+    R.sec.style.setProperty('--capv', cap > 0 ? 'visible' : 'hidden');
+  }
+}
+let queued = false;
+addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; draw(); }); } }, { passive: true });
+addEventListener('resize', sizeAll);
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+new MutationObserver(draw).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+
+/* index links: jump to the start of each reel */
+$$('.index a').forEach(a => a.addEventListener('click', e => {
+  const t = $(a.getAttribute('href')); if (!t) return;
+  e.preventDefault();
+  scrollTo({ top: t.getBoundingClientRect().top + scrollY, behavior: reduce ? 'auto' : 'smooth' });
+}));
+
+/* Runess: the full-screen picture is a carousel of seven scenes */
+const SCENES = {
+  en: ['Relic hall', 'The knight', 'The troll', 'The Skeleton King', 'The shop', 'The crystal golem', 'The herbalist'],
+  it: ['Sala delle reliquie', 'Il cavaliere', 'Il troll', 'Il re degli scheletri', 'Il negozio', 'Il golem di cristallo', "L'erborista"]
+};
+const rSec = $('#runess'), rImgs = $$('#rCar img');
+let rI = 0, rHold = 0, rSx = null;
+function rShow(i) {
+  rI = (i + rImgs.length) % rImgs.length;
+  rImgs.forEach((im, k) => im.classList.toggle('on', k === rI));
+  const it = root.lang === 'it';
+  $('#rLab').textContent = `${rI + 1} / ${rImgs.length} · ${SCENES[it ? 'it' : 'en'][rI]}`;
+}
+$('#rPrev').addEventListener('click', () => { rHold = Date.now(); rShow(rI - 1); });
+$('#rNext').addEventListener('click', () => { rHold = Date.now(); rShow(rI + 1); });
+const rStage = $('.stage', rSec);
+rStage.addEventListener('pointerdown', e => { rSx = e.clientX; });
+rStage.addEventListener('pointerup', e => {
+  if (rSx === null) return; const dx = e.clientX - rSx; rSx = null;
+  if (Math.abs(dx) > 50 && parseFloat(rSec.style.getPropertyValue('--cap') || (reduce ? 1 : 0)) > .5) { rHold = Date.now(); rShow(rI + (dx < 0 ? 1 : -1)); }
+});
+setInterval(() => {
+  if (reduce || document.hidden || Date.now() - rHold < 12000) return;
+  if (parseFloat(rSec.style.getPropertyValue('--cap') || 0) > .5) rShow(rI + 1);
+}, 4500);
+rShow(0);
+
+/* Runess: a few pixel-art gifts wander slowly over the picture */
+const rStageEl = $('.stage', rSec), gifts = $$('.gifts img', rSec);
+const GP = gifts.map((g, i) => ({ g, bx: [.56, .74, .9, .64, .84, .47][i], by: [.18, .3, .16, .5, .62, .36][i], sx: .11 + i * .023, sy: .09 + ((i * 7) % 5) * .02, p: i * 1.7, q: i * 2.3 }));
+let gOn = false;
+new IntersectionObserver(es => { gOn = es[0].isIntersecting; }).observe(rStageEl);
+function placeGifts(t) {
+  const W = rStageEl.clientWidth, H = rStageEl.clientHeight, mob = W < 700, sz = mob ? 48 : 72;
+  for (const k of GP) {
+    const bx = mob ? .12 + (k.bx - .45) * 1.6 : k.bx, by = mob ? .1 + k.by * .55 : k.by;
+    const x = (bx + Math.sin(t * k.sx + k.p) * .09) * W - sz / 2, y = (by + Math.sin(t * k.sy + k.q) * .08 + Math.sin(t * 1.3 + k.p) * .01) * H - sz / 2;
+    k.g.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px) rotate(${(Math.sin(t * .6 + k.q) * 10).toFixed(1)}deg)`;
+  }
+}
+if (reduce) { placeGifts(0); addEventListener('resize', () => placeGifts(0)); }
+else {
+  const gTick = now => {
+    if (gOn && !document.hidden && parseFloat(rSec.style.getPropertyValue('--cap') || 0) > 0) placeGifts(now / 1000);
+    requestAnimationFrame(gTick);
+  };
+  requestAnimationFrame(gTick);
+}
+
+/* lightbox for the drawings and the card photos */
+const SETS = { draw: ["img/big/d01.webp", "img/big/d02.webp", "img/big/d03.webp", "img/big/d04.webp", "img/big/d05.webp", "img/big/d06.webp", "img/big/d07.webp", "img/big/d08.webp", "img/big/d09.webp", "img/big/d10.webp", "img/big/d11.webp", "img/big/d12.webp", "img/big/d13.webp", "img/big/d14.webp", "img/big/d15.webp", "img/big/d16.webp", "img/big/d17.webp", "img/big/d18.webp", "img/big/d19.webp", "img/big/d20.webp", "img/big/d21.webp", "img/big/d22.webp", "img/big/d23.webp", "img/big/d24.webp", "img/big/d25.webp", "img/big/d26.webp", "img/big/d27.webp", "img/big/d28.webp", "img/big/d29.webp", "img/big/d30.webp", "img/big/d31.webp", "img/big/d32.webp"], cards: ['img/big/c1.webp', 'img/big/c2.webp', 'img/big/c3.webp', 'img/big/c4.webp'] };
+const lb = $('#lb'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
+let lbSet = 'draw', lbI = 0, lbX = null;
+function lbShow() {
+  const list = SETS[lbSet], it = root.lang === 'it';
+  lbImg.src = list[lbI];
+  lbImg.alt = lbSet === 'draw' ? (it ? `Disegno ${lbI + 1} di ${list.length}, di Yanez` : `Drawing ${lbI + 1} of ${list.length}, by Yanez`) : (it ? `Happy Squid Game, foto ${lbI + 1}` : `Happy Squid Game, photo ${lbI + 1}`);
+  lbCap.textContent = `${lbI + 1} / ${list.length} · ${lbSet === 'draw' ? 'Yanez' : 'Happy Squid Game'}`;
+}
+function lbOpen(set, i) {
+  lbSet = set; lbI = i; lbShow();
+  if (!lb.open) { try { lb.showModal(); } catch (e) { lb.setAttribute('open', ''); } }
+}
+function lbStep(d) { const n = SETS[lbSet].length; lbI = (lbI + d + n) % n; lbShow(); }
+function lbClose() { try { lb.close(); } catch (e) { lb.removeAttribute('open'); } }
+$$('.tile').forEach((b, i) => b.addEventListener('click', () => lbOpen('draw', i)));
+$$('.thumb').forEach((b, i) => b.addEventListener('click', () => lbOpen('cards', i)));
+$('#lbPrev').addEventListener('click', () => lbStep(-1));
+$('#lbNext').addEventListener('click', () => lbStep(1));
+$('#lbClose').addEventListener('click', lbClose);
+lb.addEventListener('click', e => { if (e.target === lb) lbClose(); });
+lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') lbStep(-1); else if (e.key === 'ArrowRight') lbStep(1); });
+lb.addEventListener('pointerdown', e => { lbX = e.clientX; });
+lb.addEventListener('pointerup', e => { if (lbX === null) return; const dx = e.clientX - lbX; lbX = null; if (Math.abs(dx) > 50) lbStep(dx < 0 ? 1 : -1); });
+
+/* motion on the title and on the motto */
+$$('.tagline [data-l]').forEach(el => {
+  const t = el.textContent; el.textContent = '';
+  [...t].forEach((ch, k) => { const s = document.createElement('span'); s.className = 'wv'; s.style.setProperty('--k', k); s.textContent = ch; el.appendChild(s); });
+});
+if (!reduce) {
+  const mark = $('.hero .mark'), heroSec = $('#top');
+  const letters = $$('.hero .mark .ln span').filter(el => !el.classList.contains('inc'));
+  let L = [], minX = 0, maxX = 1, ptr = null, heroVisible = true, alive = false;
+  const measure = () => {
+    if (!alive) return;
+    letters.forEach(el => { el.style.transform = ''; });
+    L = letters.map(el => { const r = el.getBoundingClientRect(); return { el, x: r.left + r.width / 2 + scrollX, y: r.top + r.height / 2 + scrollY, h: r.height, s: 1, ty: 0 }; });
+    minX = Math.min(...L.map(l => l.x)); maxX = Math.max(...L.map(l => l.x));
+  };
+  heroSec.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') ptr = { x: e.pageX, y: e.pageY }; });
+  heroSec.addEventListener('pointerleave', () => { ptr = null; });
+  new IntersectionObserver(es => { heroVisible = es[0].isIntersecting; }).observe(heroSec);
+  addEventListener('resize', () => requestAnimationFrame(measure));
+  const t0 = performance.now() + 1600;
+  const tick = now => {
+    if (alive && heroVisible && !document.hidden && L.length) {
+      const t = (now - t0) / 1000, cyc = t % 7, sweep = cyc < 1.4 ? cyc / 1.4 : -1;
+      for (const l of L) {
+        let f = 0;
+        if (ptr) { const dx = (ptr.x - l.x) / Math.max(120, l.h * 1.4), dy = (ptr.y - l.y) / Math.max(90, l.h); f = Math.exp(-(dx * dx + dy * dy)); }
+        if (sweep >= 0) { const u = (l.x - minX) / Math.max(1, maxX - minX), d = (u - (sweep * 1.3 - .15)) / .09; f = Math.max(f, Math.exp(-d * d) * .75); }
+        l.s += (1 + .2 * f - l.s) * .16;
+        l.ty += (-.05 * f - l.ty) * .16;
+        l.el.style.transform = `translateY(${(l.ty * l.h).toFixed(2)}px) scaleY(${l.s.toFixed(4)})`;
+      }
+    }
+    requestAnimationFrame(tick);
+  };
+  setTimeout(() => { alive = true; mark.classList.add('alive'); measure(); }, 1600);
+  requestAnimationFrame(tick);
+  window.__measureMark = measure;
+}
+
+fitMarks();
+const ready = document.fonts && document.fonts.load ? Promise.all([document.fonts.load(FONT(100)), document.fonts.ready]) : Promise.resolve();
+ready.then(() => { reels.forEach(R => { R.geo = null; }); sizeAll(); if (window.__measureMark) window.__measureMark(); }, () => sizeAll());
+sizeAll();
+})();
+/* now and then a line-art tentacle slides in from the left or the right edge, curls, and goes back */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.createElement('canvas');
+  cv.setAttribute('aria-hidden', 'true');
+  Object.assign(cv.style, { position: 'fixed', left: '0', top: '0', width: '100%', height: '100%', pointerEvents: 'none', zIndex: '40' });
+  document.body.appendChild(cv);
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); };
+  size(); addEventListener('resize', size);
+  const N = 30, easeOut = k => 1 - Math.pow(1 - k, 3), easeIn = k => k * k * k;
+  let act = [], next = performance.now() + 2500, ptr = null, lastSide = 0;
+  addEventListener('pointermove', e => { if (e.pointerType === 'mouse') ptr = { x: e.clientX, y: e.clientY }; }, { passive: true });
+  document.addEventListener('pointerleave', () => { ptr = null; });
+
+  function make(now, side, yFrac) {
+    const css = getComputedStyle(document.documentElement);
+    return { side, y: H * yFrac, t0: now, dur: 5600, len: Math.min(W * .4, 480, H * .7) * (.85 + Math.random() * .25),
+      w0: Math.max(18, Math.min(36, W * .024)), ph: Math.random() * 6.28, curl: (Math.random() < .5 ? -1 : 1), tilt: (Math.random() - .5) * .5, b: 0,
+      fg: css.getPropertyValue('--fg').trim() || '#0c0c0e', bg: css.getPropertyValue('--bg').trim() || '#ffffff' };
+  }
+  /* one tentacle, alternating sides; about one time in three, a pair: one from each side, at different heights */
+  function spawn(now) {
+    if (Math.random() < .35) {
+      const upFirst = Math.random() < .5, s1 = Math.random() < .5 ? -1 : 1;
+      act.push(make(now, s1, upFirst ? .2 + Math.random() * .22 : .56 + Math.random() * .22));
+      act.push(make(now + 300 + Math.random() * 700, -s1, upFirst ? .56 + Math.random() * .22 : .2 + Math.random() * .22));
+      lastSide = 0;
+    } else {
+      const side = lastSide ? -lastSide : (Math.random() < .5 ? -1 : 1);
+      lastSide = Math.random() < .7 ? side : 0;
+      act.push(make(now, side, .22 + Math.random() * .56));
+    }
+  }
+  function body(P, w0, s) {
+    const n = P.length - 1, Lp = [], Rp = [], S = [];
+    for (let j = 0; j <= n; j++) {
+      const a = P[Math.max(0, j - 1)], b = P[Math.min(n, j + 1)];
+      let dx = b[0] - a[0], dy = b[1] - a[1]; const m = Math.hypot(dx, dy) || 1; dx /= m; dy /= m;
+      const nx = -dy, ny = dx, u = j / n, w = w0 * Math.pow(1 - u, .75) + 1.2;
+      Lp.push([P[j][0] + nx * w / 2, P[j][1] + ny * w / 2]);
+      Rp.push([P[j][0] - nx * w / 2, P[j][1] - ny * w / 2]);
+      if (j >= 2 && j <= n - 3 && j % 2 === 0) S.push([P[j][0] + nx * s * w * .2, P[j][1] + ny * s * w * .2, Math.max(1.4, w * .15)]);
+    }
+    return { Lp, Rp, S };
+  }
+  function trace(g) {
+    const p = g.Lp.concat(g.Rp.slice().reverse());
+    ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+    for (let i = 1; i < p.length - 1; i++) ctx.quadraticCurveTo(p[i][0], p[i][1], (p[i][0] + p[i + 1][0]) / 2, (p[i][1] + p[i + 1][1]) / 2);
+    ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
+  }
+  function draw(T, now) {
+    const e = (now - T.t0) / T.dur;
+    if (e < 0) return;
+    const ext = e < .2 ? easeOut(e / .2) : e < .78 ? 1 : 1 - easeIn((e - .78) / .22), t = now / 1000;
+    const dir = T.side < 0 ? 0 : Math.PI, x0 = T.side < 0 ? -8 : W + 8;
+    let tg = 0;
+    if (ptr) {
+      let a = Math.atan2(ptr.y - T.y, ptr.x - x0) - dir;
+      a = Math.atan2(Math.sin(a), Math.cos(a));
+      if (Math.hypot(ptr.x - x0, ptr.y - T.y) < T.len * 1.4) tg = Math.max(-1, Math.min(1, a)) * .7;
+    }
+    T.b += (tg - T.b) * .05;
+    const L = T.len * ext, sl = L / N, curl = T.curl * (1.05 + .45 * Math.sin(t * 1.2 + T.ph)) * (1.35 - ext * .35);
+    let x = x0, y = T.y; const P = [[x, y]];
+    for (let j = 1; j <= N; j++) {
+      const u = j / N;
+      const th = dir + (T.tilt + T.b) * u + Math.sin(t * 1.7 + T.ph - j * .28) * .2 * u + curl * u * u * u * 2.3;
+      x += Math.cos(th) * sl; y += Math.sin(th) * sl; P.push([x, y]);
+    }
+    const g = body(P, T.w0 * (.55 + .45 * ext), T.curl);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    trace(g); ctx.closePath(); ctx.fillStyle = T.bg; ctx.fill();
+    trace(g); ctx.strokeStyle = T.fg; ctx.lineWidth = 2.6; ctx.stroke();
+    ctx.lineWidth = 1.7;
+    for (const s of g.S) { ctx.beginPath(); ctx.arc(s[0], s[1], s[2], 0, 6.2832); ctx.stroke(); }
+  }
+  function frame(now) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    if (!act.length && now > next && !document.hidden) spawn(now);
+    act = act.filter(T => now - T.t0 < T.dur);
+    if (!act.length && next < now) next = now + 3500 + Math.random() * 4000;
+    for (const T of act) draw(T, now);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/logo.png">
+<title>Happy Squid Inc. · Disegni</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@125,850&display=swap">
+<style>
+/* A wall: every drawing touching the next, rows of equal height that fill the width and drift slowly side to side,
+   nothing else but the way back. Each row is a little wider than the screen, so the drift never shows an edge. */
+:root{
+  --bg:#0c0c0e; --fg:#ffffff; --accent:#ff2f6e; --shade:rgba(12,12,14,.82);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg)}
+img{max-width:100%}
+[hidden]{display:none!important}
+.wall{overflow:hidden;--a:0px}
+.row{list-style:none;margin:0;padding:0;display:flex}
+.row.init{flex-wrap:wrap}
+.row.init::after{content:"";flex:999 1 0}
+.row.init li{flex:var(--g) 1 calc(var(--g) * var(--rh));min-width:0;height:var(--rh)}
+.row li{flex:none;margin:0;overflow:hidden}
+.row.drift{width:calc(100% + var(--a) * 2);margin-left:calc(var(--a) * -1);animation:drift var(--dur,22s) ease-in-out var(--del,0s) infinite alternate;will-change:transform}
+.row.drift.rev{animation-direction:alternate-reverse}
+@keyframes drift{from{transform:translateX(calc(var(--a) * -1))}to{transform:translateX(var(--a))}}
+.wall{--rh:300px}
+@media (max-width:1100px){.wall{--rh:240px}}
+@media (max-width:600px){.wall{--rh:150px}}
+.wall button{display:block;width:100%;height:100%;padding:0;border:0;background:var(--bg);cursor:zoom-in}
+.wall img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.2,.7,.1,1)}
+.wall button:hover img{transform:scale(1.04)}
+.wall button:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+
+.back{position:fixed;z-index:5;left:max(18px,env(safe-area-inset-left,0px));top:max(12px,env(safe-area-inset-top,0px));padding:4px 2px;
+  display:flex;align-items:center;gap:.22em;color:var(--fg);text-decoration:none;font:850 clamp(34px,5.2vw,72px)/1 'Archivo','Helvetica Neue',Arial,sans-serif;font-stretch:125%;
+  text-transform:uppercase;letter-spacing:-.01em;text-shadow:none;transition:color .2s}
+.back svg{width:.78em;height:.78em;flex:none;transition:transform .25s}
+.back:hover{color:var(--accent)}
+.back:hover svg{transform:translateX(-.08em)}
+.back:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+.lb{width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:var(--bg);color:var(--fg)}
+.lb::backdrop{background:var(--bg)}
+.lb[open]{display:grid;place-items:center}
+.lb img{max-width:96vw;max-height:94vh;max-height:94svh;width:auto;height:auto;object-fit:contain;display:block;touch-action:pan-y}
+.lb-btn{position:fixed;width:56px;height:56px;border-radius:50%;border:0;background:var(--shade);color:var(--fg);cursor:pointer;font:500 26px/1 'Helvetica Neue',Arial,sans-serif}
+.lb-btn:hover{background:var(--accent)}
+.lb-x{top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}
+.lb-prev,.lb-next{top:50%;translate:0 -50%}
+.lb-prev{left:max(16px,env(safe-area-inset-left,0px))}
+.lb-next{right:max(16px,env(safe-area-inset-right,0px))}
+@media (max-width:600px){.lb-prev,.lb-next{top:auto;bottom:max(16px,env(safe-area-inset-bottom,0px));translate:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="back" href="./"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4.2" stroke-linecap="square" stroke-linejoin="miter"><path d="M21 12H4.5M11.5 4.5 4 12l7.5 7.5"/></svg><span id="back">Indietro</span></a>
+<main>
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Yanez · Drawings</h1>
+  <div class="wall"><ul class="row init"><li style="--g:0.8727"><button type="button" data-big="img/big/d01.webp"><img src="img/d01.webp" srcset="img/d01.webp 480w, img/big/d01.webp 1221w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 1 by Yanez" width="480" height="550" loading="eager" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d02.webp"><img src="img/d02.webp" srcset="img/d02.webp 480w, img/big/d02.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 2 by Yanez" width="480" height="679" loading="eager" decoding="async"></button></li><li style="--g:0.8027"><button type="button" data-big="img/big/d03.webp"><img src="img/d03.webp" srcset="img/d03.webp 480w, img/big/d03.webp 1123w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 3 by Yanez" width="480" height="598" loading="eager" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d04.webp"><img src="img/d04.webp" srcset="img/d04.webp 480w, img/big/d04.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 4 by Yanez" width="480" height="480" loading="eager" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d05.webp"><img src="img/d05.webp" srcset="img/d05.webp 480w, img/big/d05.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 5 by Yanez" width="480" height="480" loading="eager" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d06.webp"><img src="img/d06.webp" srcset="img/d06.webp 480w, img/big/d06.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 6 by Yanez" width="480" height="480" loading="eager" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d07.webp"><img src="img/d07.webp" srcset="img/d07.webp 480w, img/big/d07.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 7 by Yanez" width="480" height="480" loading="eager" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d08.webp"><img src="img/d08.webp" srcset="img/d08.webp 480w, img/big/d08.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 8 by Yanez" width="480" height="480" loading="eager" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d09.webp"><img src="img/d09.webp" srcset="img/d09.webp 480w, img/big/d09.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 9 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d10.webp"><img src="img/d10.webp" srcset="img/d10.webp 480w, img/big/d10.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 10 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d11.webp"><img src="img/d11.webp" srcset="img/d11.webp 480w, img/big/d11.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 11 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d12.webp"><img src="img/d12.webp" srcset="img/d12.webp 480w, img/big/d12.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 12 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d13.webp"><img src="img/d13.webp" srcset="img/d13.webp 480w, img/big/d13.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 13 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d14.webp"><img src="img/d14.webp" srcset="img/d14.webp 480w, img/big/d14.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 14 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d15.webp"><img src="img/d15.webp" srcset="img/d15.webp 480w, img/big/d15.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 15 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d16.webp"><img src="img/d16.webp" srcset="img/d16.webp 480w, img/big/d16.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 16 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d17.webp"><img src="img/d17.webp" srcset="img/d17.webp 480w, img/big/d17.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 17 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d18.webp"><img src="img/d18.webp" srcset="img/d18.webp 480w, img/big/d18.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 18 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d19.webp"><img src="img/d19.webp" srcset="img/d19.webp 480w, img/big/d19.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 19 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d20.webp"><img src="img/d20.webp" srcset="img/d20.webp 480w, img/big/d20.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 20 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d21.webp"><img src="img/d21.webp" srcset="img/d21.webp 480w, img/big/d21.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 21 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d22.webp"><img src="img/d22.webp" srcset="img/d22.webp 480w, img/big/d22.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 22 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d23.webp"><img src="img/d23.webp" srcset="img/d23.webp 480w, img/big/d23.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 23 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d24.webp"><img src="img/d24.webp" srcset="img/d24.webp 480w, img/big/d24.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 24 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d25.webp"><img src="img/d25.webp" srcset="img/d25.webp 480w, img/big/d25.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 25 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.3333"><button type="button" data-big="img/big/d26.webp"><img src="img/d26.webp" srcset="img/d26.webp 480w, img/big/d26.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 26 by Yanez" width="480" height="360" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d27.webp"><img src="img/d27.webp" srcset="img/d27.webp 480w, img/big/d27.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 27 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d28.webp"><img src="img/d28.webp" srcset="img/d28.webp 480w, img/big/d28.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 28 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d29.webp"><img src="img/d29.webp" srcset="img/d29.webp 480w, img/big/d29.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 29 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:0.7069"><button type="button" data-big="img/big/d30.webp"><img src="img/d30.webp" srcset="img/d30.webp 480w, img/big/d30.webp 990w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 30 by Yanez" width="480" height="679" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d31.webp"><img src="img/d31.webp" srcset="img/d31.webp 480w, img/big/d31.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 31 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li><li style="--g:1.0000"><button type="button" data-big="img/big/d32.webp"><img src="img/d32.webp" srcset="img/d32.webp 480w, img/big/d32.webp 1400w" sizes="(max-width:600px) 50vw, 30vw" alt="Drawing 32 by Yanez" width="480" height="480" loading="lazy" decoding="async"></button></li></ul></div>
+</main>
+<dialog class="lb" id="lb">
+  <img id="lbImg" alt="">
+  <button class="lb-btn lb-x" type="button" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-btn lb-prev" type="button" id="lbPrev" aria-label="Previous">←</button>
+  <button class="lb-btn lb-next" type="button" id="lbNext" aria-label="Next">→</button>
+</dialog>
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+let lang = 'en';
+try { lang = localStorage.getItem('hsq-mini-lang') || ''; } catch (e) {}
+if (!lang) lang = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase().startsWith('it') ? 'it' : 'en';
+const it = lang === 'it';
+document.documentElement.lang = it ? 'it' : 'en';
+document.title = it ? 'Happy Squid Inc. · Disegni' : 'Happy Squid Inc. · Drawings';
+$('#back').textContent = it ? 'Indietro' : 'Back';
+$('h1').textContent = it ? 'Yanez · Disegni' : 'Yanez · Drawings';
+$('#lbClose').setAttribute('aria-label', it ? 'Chiudi' : 'Close');
+$('#lbPrev').setAttribute('aria-label', it ? 'Precedente' : 'Previous');
+$('#lbNext').setAttribute('aria-label', it ? 'Successivo' : 'Next');
+const tiles = $$('.wall button'), N = tiles.length;
+const alt = i => it ? `Disegno ${i + 1} di ${N}, di Yanez` : `Drawing ${i + 1} of ${N}, by Yanez`;
+tiles.forEach((b, i) => { $('img', b).alt = alt(i); });
+
+/* justified wall: every row fills the width exactly (plus the drift margin), the last one too; no drawing is cropped */
+const wall = $('.wall'), lis = $$('.wall li'), AR = lis.map(li => parseFloat(li.style.getPropertyValue('--g')) || 1);
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lastW = 0;
+function layout() {
+  const W = wall.clientWidth; if (!W || W === lastW) return;
+  lastW = W;
+  const A = calm ? 0 : (W < 600 ? 26 : 60), WW = W + 2 * A;
+  const target = W < 600 ? 150 : W < 1100 ? 240 : 300;
+  const rows = []; let row = [], sum = 0;
+  AR.forEach((a, i) => { row.push(i); sum += a; if (sum * target >= WW) { rows.push([row, sum]); row = []; sum = 0; } });
+  if (row.length) {
+    if (rows.length && sum * target < WW * .6) { const [r, s] = rows.pop(); rows.push([r.concat(row), s + sum]); }
+    else rows.push([row, sum]);
+  }
+  wall.style.setProperty('--a', A + 'px');
+  wall.textContent = '';
+  rows.forEach(([r, s], k) => {
+    const ul = document.createElement('ul'), h = Math.round(WW / s);
+    ul.className = 'row drift' + (k % 2 ? ' rev' : '');
+    ul.style.setProperty('--dur', (17 + (k * 7) % 11) + 's');
+    ul.style.setProperty('--del', '-' + ((k * 5.3) % 13).toFixed(1) + 's');
+    let used = 0;
+    r.forEach((i, j) => {
+      const w = j === r.length - 1 ? WW - used : Math.floor(AR[i] * WW / s);
+      used += w;
+      lis[i].style.width = w + 'px'; lis[i].style.height = h + 'px';
+      ul.appendChild(lis[i]);
+    });
+    wall.appendChild(ul);
+  });
+}
+new ResizeObserver(layout).observe(wall);
+layout();
+
+const lb = $('#lb'), lbImg = $('#lbImg');
+let cur = 0, sx = null;
+function show(i) { cur = (i + N) % N; lbImg.src = tiles[cur].dataset.big; lbImg.alt = alt(cur); }
+function open(i) { show(i); if (!lb.open) { try { lb.showModal(); } catch (e) { lb.setAttribute('open', ''); } } }
+function close() { try { lb.close(); } catch (e) { lb.removeAttribute('open'); } tiles[cur].focus(); }
+tiles.forEach((b, i) => b.addEventListener('click', () => open(i)));
+$('#lbPrev').addEventListener('click', () => show(cur - 1));
+$('#lbNext').addEventListener('click', () => show(cur + 1));
+$('#lbClose').addEventListener('click', close);
+lb.addEventListener('click', e => { if (e.target === lb) close(); });
+lb.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') show(cur - 1); else if (e.key === 'ArrowRight') show(cur + 1); });
+lb.addEventListener('pointerdown', e => { sx = e.clientX; });
+lb.addEventListener('pointerup', e => { if (sx === null) return; const dx = e.clientX - sx; sx = null; if (Math.abs(dx) > 50) show(cur + (dx < 0 ? 1 : -1)); });
+})();
+</script>
+</body>
+</html>

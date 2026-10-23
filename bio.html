@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" type="image/png" href="img/logo.png">
+<title>Happy Squid Inc. · Bio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#ffffff; --fg:#0c0c0e; --mute:#6c6c75; --line:#e4e4e8; --accent:#ff2f6e; --field:#f6f6f8;
+  --f-display:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,'Courier New',monospace;
+  color-scheme:light;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0b0d;--fg:#f3f3f5;--mute:#9a9aa4;--line:#26262c;--accent:#ff4f86;--field:#151519;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b0b0d;--fg:#f3f3f5;--mute:#9a9aa4;--line:#26262c;--accent:#ff4f86;--field:#151519;color-scheme:dark}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.5 var(--f-display);-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+[hidden]{display:none!important}
+html:not([lang|="it"]) [data-l="it"],html[lang|="it"] [data-l="en"]{display:none!important}
+.wrap{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+a{color:inherit}
+.mono{font:400 12px/1.5 var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+
+.top{display:flex;align-items:center;gap:16px;padding-block:18px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:22px;height:22px;image-rendering:pixelated}
+.pages{margin-left:auto;display:flex;gap:6px 18px}
+.pages a{text-decoration:none;color:var(--mute);padding:10px 2px}
+.pages a:hover,.pages a[aria-current="page"]{color:var(--fg)}
+.pages a[aria-current="page"]{text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+.lang{margin-left:8px;display:flex;gap:4px}
+.lang button{font:500 12px/1 var(--f-mono);letter-spacing:.08em;background:none;border:0;color:var(--mute);padding:10px 8px;cursor:pointer}
+.lang button[aria-pressed="true"]{color:var(--fg);text-decoration:underline;text-decoration-color:var(--accent);text-decoration-thickness:2px;text-underline-offset:5px}
+@media (max-width:420px){.brand span{display:none}}
+
+.mark{margin:0;font-family:var(--f-display);font-weight:850;font-stretch:125%;text-transform:uppercase;line-height:.84;letter-spacing:-.02em}
+.mark .ln{display:block;white-space:nowrap;overflow:hidden;padding-bottom:.04em;font-size:12vw}
+.page-head{padding-block:clamp(40px,8vh,96px) clamp(28px,4vw,48px)}
+.eyebrow{margin:0 0 clamp(18px,3vw,34px);color:var(--mute)}
+.lead{margin:0;max-width:30ch;font-weight:500;font-size:clamp(24px,2.6vw,38px);line-height:1.15;letter-spacing:-.01em;text-wrap:balance}
+.links{display:flex;flex-wrap:wrap;gap:6px 22px}
+.links a{display:inline-flex;align-items:center;gap:8px;min-height:40px;font-weight:650;font-stretch:110%;text-decoration:none;border-bottom:2px solid var(--accent)}
+.links a:hover{color:var(--accent)}
+.sec{margin:0 0 22px;color:var(--mute);display:flex;align-items:center;gap:12px}
+.sec::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.foot{padding-block:clamp(60px,10vw,120px) 24px}
+.foot .mark .ln{color:var(--accent)}
+.foot-row{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;margin-top:28px;color:var(--mute);padding-bottom:env(safe-area-inset-bottom,0px)}
+.foot-row nav{margin-left:auto;display:flex;flex-wrap:wrap;gap:4px 22px}
+.foot-row a{text-decoration:none;padding-block:8px;color:var(--fg)}
+.foot-row a:hover{color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Bio: giant title, one paragraph, four true numbers, the two people, what we make. */
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:clamp(48px,7vw,90px) 0 0;padding:0}
+.nums div{border-top:2px solid var(--fg);padding-top:14px;min-width:0}
+.nums dt{font-weight:850;font-stretch:125%;font-size:clamp(48px,7vw,104px);line-height:.9;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.nums dd{margin:8px 0 0}
+.nums div:last-child dt{color:var(--accent)}
+@media (max-width:640px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.people{margin-top:clamp(70px,10vw,130px)}
+.person{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:start;padding-block:28px;border-top:1px solid var(--line)}
+.person:first-of-type{border-top:0;padding-top:0}
+.ph{aspect-ratio:600/703;background:var(--field);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph.mono-tile{display:grid;place-items:center;background:var(--accent);color:var(--bg);font:850 clamp(90px,12vw,160px)/1 var(--f-display);font-stretch:125%}
+.person h3{margin:0;font-weight:850;font-stretch:125%;text-transform:uppercase;font-size:clamp(28px,7vw,72px);line-height:.9;letter-spacing:-.02em;overflow-wrap:anywhere}
+.person>div{min-width:0}
+.person .role{margin:12px 0 0;color:var(--mute)}
+.person .txt{margin:18px 0 22px;font-size:clamp(19px,1.6vw,23px);line-height:1.35;font-weight:500;max-width:34ch}
+@media (max-width:700px){.person{grid-template-columns:minmax(0,1fr)}.ph{max-width:320px}}
+.what{margin-top:clamp(70px,10vw,130px)}
+.rows{list-style:none;margin:0;padding:0}
+.rows a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 24px;align-items:baseline;padding-block:20px;border-top:1px solid var(--line);text-decoration:none}
+.rows li:last-child a{border-bottom:1px solid var(--line)}
+.rows b{font-weight:800;font-stretch:120%;font-size:clamp(26px,3vw,44px);line-height:1;letter-spacing:-.01em}
+.rows .mono{color:var(--mute);grid-column:1}
+.rows i{font-style:normal;color:var(--accent);grid-row:1;grid-column:2;font-size:28px;transition:transform .25s}
+.rows a:hover i{transform:translateX(6px)}
+.cta{margin:clamp(60px,8vw,100px) 0 0}
+.cta a{display:inline-flex;align-items:center;gap:14px;font-weight:850;font-stretch:125%;text-transform:uppercase;font-size:clamp(34px,5vw,72px);line-height:1;text-decoration:none}
+.cta a i{font-style:normal;color:var(--accent);transition:transform .25s}
+.cta a:hover i{transform:translateX(8px)}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand mono" href="./"><img src="img/logo.png" alt="" width="22" height="22"><span>Happy Squid Inc.</span></a>
+  <nav class="pages mono" aria-label="Pages"><a href="bio.html" aria-current="page">Bio</a><a href="contatti.html"><span data-l="en">Contact</span><span data-l="it">Contatti</span></a></nav>
+  <div class="lang" role="group" aria-label="Language / Lingua">
+    <button type="button" data-set="en" aria-pressed="true">EN</button>
+    <button type="button" data-set="it" aria-pressed="false">IT</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="page-head">
+    <p class="eyebrow mono">Bio</p>
+    <h1 class="mark fit"><span class="ln"><span data-l="en">About us</span><span data-l="it">Chi siamo</span></span></h1>
+  </section>
+
+  <p class="lead"><span data-l="en">Happy Squid started out as an e-sports crew. Today it also makes homemade games: videogames, playing cards and lots of drawings.</span><span data-l="it">Happy Squid nasce come gruppo e-sport. Oggi fa anche giochi fatti in casa: videogiochi, carte da gioco e tanti disegni.</span></p>
+
+  <dl class="nums">
+    <div><dt>3</dt><dd class="mono"><span data-l="en">Videogames</span><span data-l="it">Videogiochi</span></dd></div>
+    <div><dt>77</dt><dd class="mono"><span data-l="en">Playing cards</span><span data-l="it">Carte da gioco</span></dd></div>
+    <div><dt>32</dt><dd class="mono"><span data-l="en">Drawings</span><span data-l="it">Disegni</span></dd></div>
+    <div><dt>10</dt><dd class="mono"><span data-l="en">Arms</span><span data-l="it">Braccia</span></dd></div>
+  </dl>
+
+  <section class="people" aria-labelledby="pp">
+    <h2 class="sec mono" id="pp"><span data-l="en">The people</span><span data-l="it">Le persone</span></h2>
+    <article class="person">
+      <div class="ph mono-tile" aria-hidden="true">Y</div>
+      <div>
+        <h3>Yanez</h3>
+        <p class="role mono"><span data-l="en">a.k.a. Gibollino · drawings and games</span><span data-l="it">detto Gibollino · disegni e giochi</span></p>
+        <p class="txt"><span data-l="en">One of the most prolific (and least impactful) artists of recent years. Powerful images, over-the-top colours, lots of pizzas and artichokes: art that only fans of Alvaro Vitali's films can truly understand.</span><span data-l="it">Uno degli artisti più prolifici (e meno impattanti) degli ultimi anni. Immagini potenti, colori esagerati, tante pizze e carciofi: un'arte che capisce davvero solo chi ama i film di Alvaro Vitali.</span></p>
+        <div class="links">
+          <a href="https://github.com/Yanez86" target="_blank" rel="noopener">GitHub ↗</a>
+        </div>
+      </div>
+    </article>
+    <article class="person">
+      <div class="ph mono-tile" aria-hidden="true">L</div>
+      <div>
+        <h3>lucaUnlinked</h3>
+        <p class="role mono"><span data-l="en">Co-author of Happy Squid Game</span><span data-l="it">Co-autore di Happy Squid Game</span></p>
+        <p class="txt"><span data-l="en">With Yanez he built Happy Squid Game from scratch: concept, cards, rulebook and box.</span><span data-l="it">Con Yanez ha creato da zero Happy Squid Game: concept, carte, manuale e scatola.</span></p>
+      </div>
+    </article>
+  </section>
+
+  <section class="what" aria-labelledby="ww">
+    <h2 class="sec mono" id="ww"><span data-l="en">What we make</span><span data-l="it">Cosa facciamo</span></h2>
+    <ul class="rows">
+      <li><a href="./#runess"><b><span data-l="en">Videogames</span><span data-l="it">Videogiochi</span></b><span class="mono"><span data-l="en">Runess, F.U.P. · Fudo in production</span><span data-l="it">Runess, F.U.P. · Fudo in lavorazione</span></span><i aria-hidden="true">→</i></a></li>
+      <li><a href="./#carte"><b><span data-l="en">Playing cards</span><span data-l="it">Carte da gioco</span></b><span class="mono">Happy Squid Game · 77 <span data-l="en">cards</span><span data-l="it">carte</span></span><i aria-hidden="true">→</i></a></li>
+      <li><a href="disegni.html"><b><span data-l="en">Drawings</span><span data-l="it">Disegni</span></b><span class="mono"><span data-l="en">By Yanez · 32 pieces</span><span data-l="it">Di Yanez · 32 tavole</span></span><i aria-hidden="true">→</i></a></li>
+    </ul>
+  </section>
+
+  <p class="cta"><a href="contatti.html"><span data-l="en">Write to us</span><span data-l="it">Scrivici</span> <i aria-hidden="true">→</i></a></p>
+</main>
+
+<footer class="wrap foot">
+  <p class="mark fit" aria-hidden="true"><span class="ln">Happy Squid Inc.</span></p>
+  <div class="foot-row mono">
+    <span>© 2026 Happy Squid Inc.</span>
+    <nav aria-label="Elsewhere">
+      <a href="https://yanez86.itch.io/" target="_blank" rel="noopener">itch.io ↗</a>
+      <a href="https://github.com/yanez86" target="_blank" rel="noopener">GitHub ↗</a>
+    </nav>
+  </div>
+</footer>
+<script>
+(() => {
+'use strict';
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const root = document.documentElement;
+const onLang = [];
+function fitMarks() {
+  $$('.mark.fit').forEach(m => {
+    const W = m.clientWidth;
+    $$('.ln', m).forEach(ln => {
+      ln.style.fontSize = '100px';
+      const rg = document.createRange(); rg.selectNodeContents(ln);
+      const w = rg.getBoundingClientRect().width;
+      if (w) ln.style.fontSize = (100 * W / w * .995).toFixed(2) + 'px';
+    });
+  });
+}
+function setLang(l, save) {
+  const lang = l === 'it' ? 'it' : 'en';
+  root.lang = lang;
+  $$('.lang button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.set === lang)));
+  $$('[data-en][data-it]').forEach(el => { el.textContent = el.dataset[lang]; });
+  $$('[data-ph-en]').forEach(el => { el.placeholder = lang === 'it' ? el.dataset.phIt : el.dataset.phEn; });
+  if (save) { try { localStorage.setItem('hsq-mini-lang', lang); } catch (e) {} }
+  onLang.forEach(f => f(lang));
+  fitMarks();
+}
+$$('.lang button').forEach(b => b.addEventListener('click', () => setLang(b.dataset.set, true)));
+let savedLang = null;
+try { savedLang = localStorage.getItem('hsq-mini-lang'); } catch (e) {}
+const navLang = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+setLang(savedLang || (navLang.toLowerCase().startsWith('it') ? 'it' : 'en'), false);
+addEventListener('resize', fitMarks);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitMarks);
+
+})();
+/* now and then a line-art tentacle slides in from the left or the right edge, curls, and goes back */
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const cv = document.createElement('canvas');
+  cv.setAttribute('aria-hidden', 'true');
+  Object.assign(cv.style, { position: 'fixed', left: '0', top: '0', width: '100%', height: '100%', pointerEvents: 'none', zIndex: '40' });
+  document.body.appendChild(cv);
+  const ctx = cv.getContext('2d');
+  let W = 0, H = 0, dpr = 1;
+  const size = () => { dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); };
+  size(); addEventListener('resize', size);
+  const N = 30, easeOut = k => 1 - Math.pow(1 - k, 3), easeIn = k => k * k * k;
+  let act = [], next = performance.now() + 2500, ptr = null, lastSide = 0;
+  addEventListener('pointermove', e => { if (e.pointerType === 'mouse') ptr = { x: e.clientX, y: e.clientY }; }, { passive: true });
+  document.addEventListener('pointerleave', () => { ptr = null; });
+
+  function make(now, side, yFrac) {
+    const css = getComputedStyle(document.documentElement);
+    return { side, y: H * yFrac, t0: now, dur: 5600, len: Math.min(W * .4, 480, H * .7) * (.85 + Math.random() * .25),
+      w0: Math.max(18, Math.min(36, W * .024)), ph: Math.random() * 6.28, curl: (Math.random() < .5 ? -1 : 1), tilt: (Math.random() - .5) * .5, b: 0,
+      fg: css.getPropertyValue('--fg').trim() || '#0c0c0e', bg: css.getPropertyValue('--bg').trim() || '#ffffff' };
+  }
+  /* one tentacle, alternating sides; about one time in three, a pair: one from each side, at different heights */
+  function spawn(now) {
+    if (Math.random() < .35) {
+      const upFirst = Math.random() < .5, s1 = Math.random() < .5 ? -1 : 1;
+      act.push(make(now, s1, upFirst ? .2 + Math.random() * .22 : .56 + Math.random() * .22));
+      act.push(make(now + 300 + Math.random() * 700, -s1, upFirst ? .56 + Math.random() * .22 : .2 + Math.random() * .22));
+      lastSide = 0;
+    } else {
+      const side = lastSide ? -lastSide : (Math.random() < .5 ? -1 : 1);
+      lastSide = Math.random() < .7 ? side : 0;
+      act.push(make(now, side, .22 + Math.random() * .56));
+    }
+  }
+  function body(P, w0, s) {
+    const n = P.length - 1, Lp = [], Rp = [], S = [];
+    for (let j = 0; j <= n; j++) {
+      const a = P[Math.max(0, j - 1)], b = P[Math.min(n, j + 1)];
+      let dx = b[0] - a[0], dy = b[1] - a[1]; const m = Math.hypot(dx, dy) || 1; dx /= m; dy /= m;
+      const nx = -dy, ny = dx, u = j / n, w = w0 * Math.pow(1 - u, .75) + 1.2;
+      Lp.push([P[j][0] + nx * w / 2, P[j][1] + ny * w / 2]);
+      Rp.push([P[j][0] - nx * w / 2, P[j][1] - ny * w / 2]);
+      if (j >= 2 && j <= n - 3 && j % 2 === 0) S.push([P[j][0] + nx * s * w * .2, P[j][1] + ny * s * w * .2, Math.max(1.4, w * .15)]);
+    }
+    return { Lp, Rp, S };
+  }
+  function trace(g) {
+    const p = g.Lp.concat(g.Rp.slice().reverse());
+    ctx.beginPath(); ctx.moveTo(p[0][0], p[0][1]);
+    for (let i = 1; i < p.length - 1; i++) ctx.quadraticCurveTo(p[i][0], p[i][1], (p[i][0] + p[i + 1][0]) / 2, (p[i][1] + p[i + 1][1]) / 2);
+    ctx.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
+  }
+  function draw(T, now) {
+    const e = (now - T.t0) / T.dur;
+    if (e < 0) return;
+    const ext = e < .2 ? easeOut(e / .2) : e < .78 ? 1 : 1 - easeIn((e - .78) / .22), t = now / 1000;
+    const dir = T.side < 0 ? 0 : Math.PI, x0 = T.side < 0 ? -8 : W + 8;
+    let tg = 0;
+    if (ptr) {
+      let a = Math.atan2(ptr.y - T.y, ptr.x - x0) - dir;
+      a = Math.atan2(Math.sin(a), Math.cos(a));
+      if (Math.hypot(ptr.x - x0, ptr.y - T.y) < T.len * 1.4) tg = Math.max(-1, Math.min(1, a)) * .7;
+    }
+    T.b += (tg - T.b) * .05;
+    const L = T.len * ext, sl = L / N, curl = T.curl * (1.05 + .45 * Math.sin(t * 1.2 + T.ph)) * (1.35 - ext * .35);
+    let x = x0, y = T.y; const P = [[x, y]];
+    for (let j = 1; j <= N; j++) {
+      const u = j / N;
+      const th = dir + (T.tilt + T.b) * u + Math.sin(t * 1.7 + T.ph - j * .28) * .2 * u + curl * u * u * u * 2.3;
+      x += Math.cos(th) * sl; y += Math.sin(th) * sl; P.push([x, y]);
+    }
+    const g = body(P, T.w0 * (.55 + .45 * ext), T.curl);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+    trace(g); ctx.closePath(); ctx.fillStyle = T.bg; ctx.fill();
+    trace(g); ctx.strokeStyle = T.fg; ctx.lineWidth = 2.6; ctx.stroke();
+    ctx.lineWidth = 1.7;
+    for (const s of g.S) { ctx.beginPath(); ctx.arc(s[0], s[1], s[2], 0, 6.2832); ctx.stroke(); }
+  }
+  function frame(now) {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, cv.width, cv.height);
+    if (!act.length && now > next && !document.hidden) spawn(now);
+    act = act.filter(T => now - T.t0 < T.dur);
+    if (!act.length && next < now) next = now + 3500 + Math.random() * 4000;
+    for (const T of act) draw(T, now);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+</script>
+</body>
+</html>
