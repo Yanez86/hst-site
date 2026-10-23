@@ -198,7 +198,7 @@ a{color:inherit}
 
   <section class="reel" id="runess" data-word="RUNESS">
     <div class="stage">
-      <div class="pic carousel" id="rCar"><img src="img/r1.webp" alt="Runess: a castle hall with three relics on pedestals, lit by chandeliers" width="1600" height="835" class="on"><img src="img/r2.webp" alt="Runess: a knight sitting under a barred window in a ray of light" width="1600" height="835" loading="lazy"><img src="img/r3.webp" alt="Runess: the enchanted bolt hits a red voxel troll" width="1600" height="835" loading="lazy"><img src="img/r4.webp" alt="Runess: the Skeleton King raises his sword" width="1600" height="835" loading="lazy"><img src="img/r5.webp" alt="Runess: the shop, where gifts cost promises" width="1600" height="835" loading="lazy"><img src="img/r6.webp" alt="Runess: the crystal golem glows purple in the dark" width="1600" height="835" loading="lazy"><img src="img/r7.webp" alt="Runess: the herbalist room with a green bubbling cauldron" width="1600" height="835" loading="lazy"></div>
+      <div class="pic carousel" id="rCar"><img src="img/r6.webp" alt="Runess: the crystal golem glows purple in the dark" width="1600" height="835" class="on"><img src="img/r1.webp" alt="Runess: a castle hall with three relics on pedestals, lit by chandeliers" width="1600" height="835" loading="lazy"><img src="img/r2.webp" alt="Runess: a knight sitting under a barred window in a ray of light" width="1600" height="835" loading="lazy"><img src="img/r3.webp" alt="Runess: the enchanted bolt hits a red voxel troll" width="1600" height="835" loading="lazy"><img src="img/r4.webp" alt="Runess: the Skeleton King raises his sword" width="1600" height="835" loading="lazy"><img src="img/r5.webp" alt="Runess: the shop, where gifts cost promises" width="1600" height="835" loading="lazy"><img src="img/r7.webp" alt="Runess: the herbalist room with a green bubbling cauldron" width="1600" height="835" loading="lazy"></div>
       <canvas class="knock" aria-hidden="true"></canvas>
       <p class="count mono">1 / 4</p>
       <div class="gifts" aria-hidden="true"><img src="img/gifts/magic_bean.png" alt="" width="72" height="72"><img src="img/gifts/dragon_heart.png" alt="" width="72" height="72"><img src="img/gifts/glass_slippers.png" alt="" width="72" height="72"><img src="img/gifts/golden_cockerel.png" alt="" width="72" height="72"><img src="img/gifts/water_of_life.png" alt="" width="72" height="72"><img src="img/gifts/owl_feather.png" alt="" width="72" height="72"></div>
@@ -432,8 +432,8 @@ $$('.index a').forEach(a => a.addEventListener('click', e => {
 
 /* Runess: the full-screen picture is a carousel of seven scenes */
 const SCENES = {
-  en: ['Relic hall', 'The knight', 'The troll', 'The Skeleton King', 'The shop', 'The crystal golem', 'The herbalist'],
-  it: ['Sala delle reliquie', 'Il cavaliere', 'Il troll', 'Il re degli scheletri', 'Il negozio', 'Il golem di cristallo', "L'erborista"]
+  en: ['The crystal golem', 'Relic hall', 'The knight', 'The troll', 'The Skeleton King', 'The shop', 'The herbalist'],
+  it: ['Il golem di cristallo', 'Sala delle reliquie', 'Il cavaliere', 'Il troll', 'Il re degli scheletri', 'Il negozio', "L'erborista"]
 };
 const rSec = $('#runess'), rImgs = $$('#rCar img');
 let rI = 0, rHold = 0, rSx = null;
