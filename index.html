@@ -71,6 +71,23 @@ a{color:inherit}
 .scroll::before{content:"";width:40px;height:1px;background:currentColor}
 @media (max-width:1000px){.index{grid-template-columns:minmax(0,1fr);gap:20px}}
 @media (max-width:600px){.hero .mark .ln span.inc{display:block;margin-left:0}}
+/* phone: the first screen is only the name, narrowed by the width axis (and stretched if needed) until it fills the screen; the rest follows below */
+@media (max-width:600px){
+  .hero{display:flex;flex-direction:column;padding-top:0}
+  .hero .mark .ln{transform-origin:0 0}
+  .hero .mark{order:-1;box-sizing:border-box;height:calc(100vh - var(--toph,70px));height:calc(100svh - var(--toph,70px) - env(safe-area-inset-top,0px));display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:18px}
+  .eyebrow{margin:clamp(48px,14vw,72px) 0 18px}
+  .below{margin-top:0;gap:30px}
+  .tagline{font-size:8.2vw;white-space:nowrap}
+  .index{gap:0}
+  .index a{display:block;padding:18px 0 20px;border-top:1px solid var(--line)}
+  .index a:last-child{border-bottom:1px solid var(--line)}
+  .index b{font-size:26px;margin-bottom:10px}
+  .index b i{margin-left:auto}
+  .index a > .mono + .mono::before{content:"·";margin:0 .7em}
+  .index .langs{margin:10px 0 0}
+  .scroll{margin-top:40px}
+}
 
 /* reels: zoom through the name into the game */
 .reel{position:relative;height:320vh;height:320svh}
@@ -309,6 +326,7 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const root = document.documentElement;
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (reduce) root.classList.add('calm');
+const PHONE = matchMedia('(max-width: 600px)'), heroMark = $('.hero .mark');
 
 /* language */
 function setLang(l, save) {
@@ -338,15 +356,47 @@ $$('.mark .ln').forEach(ln => {
   });
   walk(ln);
 });
+function fitWidth(m) {
+  const W = m.clientWidth;
+  $$('.ln', m).forEach(ln => {
+    ln.style.fontSize = '100px';
+    const rg = document.createRange(); rg.selectNodeContents(ln);
+    const inc = $('.inc', ln);
+    if (inc && getComputedStyle(inc).display === 'block') rg.setEndBefore(inc);
+    const w = rg.getBoundingClientRect().width;
+    if (w) ln.style.fontSize = (100 * W / w * .995).toFixed(2) + 'px';
+  });
+}
+/* on a phone the hero name fills the first screen: search the width axis (62–125%) for the widest letters that still fit the height */
+function fitHeight(m) {
+  const cs = getComputedStyle(m), H = m.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const tall = () => $$('.ln', m).reduce((t, ln) => t + ln.offsetHeight, 0);
+  const at = s => { m.style.fontStretch = s + '%'; fitWidth(m); return tall(); };
+  $$('.ln', m).forEach(ln => { ln.style.transform = ''; ln.style.marginBottom = ''; });
+  let lo = 62, hi = 125;
+  if (at(hi) > H) {
+    const k = H / tall();
+    $$('.ln', m).forEach(ln => { ln.style.fontSize = (parseFloat(ln.style.fontSize) * k).toFixed(2) + 'px'; });
+    return;
+  }
+  if (at(lo) < H) {
+    /* still room at the narrowest width: the letters stretch upwards, like they do when they are alive */
+    const k = Math.min(1.8, H / tall());
+    $$('.ln', m).forEach(ln => { ln.style.transform = `scaleY(${k.toFixed(4)})`; ln.style.marginBottom = (ln.offsetHeight * (k - 1)).toFixed(2) + 'px'; });
+    return;
+  }
+  for (let n = 0; n < 9; n++) { const s = (lo + hi) / 2; if (at(s) > H) lo = s; else hi = s; }
+  at(hi);
+}
 function fitMarks() {
+  root.style.setProperty('--toph', $('.top').offsetHeight + 'px');
   $$('.mark.fit').forEach(m => {
-    const W = m.clientWidth;
-    $$('.ln', m).forEach(ln => {
-      ln.style.fontSize = '100px';
-      const rg = document.createRange(); rg.selectNodeContents(ln);
-      const w = rg.getBoundingClientRect().width;
-      if (w) ln.style.fontSize = (100 * W / w * .995).toFixed(2) + 'px';
-    });
+    if (m === heroMark && PHONE.matches) fitHeight(m);
+    else {
+      m.style.fontStretch = '';
+      $$('.ln', m).forEach(ln => { ln.style.transform = ''; ln.style.marginBottom = ''; });
+      fitWidth(m);
+    }
   });
 }
 
@@ -381,9 +431,13 @@ function sizeAll() {
     const st = R.cv.parentElement, w = st.clientWidth, h = st.clientHeight;
     R.cv.width = Math.round(w * DPR); R.cv.height = Math.round(h * DPR); R.w = w; R.h = h;
     if (!R.geo) R.geo = analyse(R.word);
-    const g = R.geo, k = Math.min(w * .86 / g.adv, h * .5 / g.asc);
+    const g = R.geo, fit = (a, b) => Math.min(a * .86 / g.adv, b * .5 / g.asc);
+    /* on a phone held upright a long word stands up and reads from the bottom, so it can be much bigger */
+    R.rot = PHONE.matches && h > w && fit(h, w) > fit(w, h) * 1.3;
+    const a = R.rot ? h : w, b = R.rot ? w : h, k = fit(a, b);
+    R.a = a; R.b = b;
     R.F = g.S * k;
-    R.x0 = (w - g.adv * k) / 2; R.y0 = h / 2 + g.asc * k * .5;
+    R.x0 = (a - g.adv * k) / 2; R.y0 = b / 2 + g.asc * k * .5;
     R.O = [R.x0 + g.ox * k, R.y0 + g.oy * k];
     R.smax = Math.hypot(w, h) / 2 / Math.max(1, g.r * k) * 1.15;
   }
@@ -404,10 +458,11 @@ function draw() {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.clearRect(0, 0, R.cv.width, R.cv.height);
     if (z < 1) {
-      const s = Math.exp(Math.log(R.smax) * e), O = R.O, T = [O[0] + (R.w / 2 - O[0]) * e, O[1] + (R.h / 2 - O[1]) * e];
+      const s = Math.exp(Math.log(R.smax) * e), O = R.O, T = [O[0] + (R.a / 2 - O[0]) * e, O[1] + (R.b / 2 - O[1]) * e];
       ctx.fillStyle = bg; ctx.fillRect(0, 0, R.cv.width, R.cv.height);
       ctx.globalCompositeOperation = 'destination-out';
-      ctx.setTransform(DPR * s, 0, 0, DPR * s, DPR * (T[0] - s * O[0]), DPR * (T[1] - s * O[1]));
+      if (R.rot) ctx.setTransform(0, -DPR, DPR, 0, 0, DPR * R.h); else ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.transform(s, 0, 0, s, T[0] - s * O[0], T[1] - s * O[1]);
       ctx.font = FONT(R.F); ctx.textBaseline = 'alphabetic'; ctx.fillStyle = '#000';
       ctx.fillText(R.word, R.x0, R.y0);
       ctx.globalCompositeOperation = 'source-over';
